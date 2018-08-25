@@ -1,0 +1,17 @@
+{
+  "name": "signal-server-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "Philippe Schild",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "sqlite3": "^4.0.0"
+  }
+}

@@ -70,7 +70,6 @@ class Database {
     }
 
     createPreKeysForUser(registrationId, preKeys) {
-        // TODO: put userId isntead of registrationId?
         const stmt = this.db.prepare(`INSERT INTO preKeys (registrationId, keyId, pubPreKey) VALUES ($registrationId, $keyId, $pubPreKey)`);
         let preKeyPromises = preKeys.map(preKey => new Promise((resolve, reject) => {
             stmt.run({

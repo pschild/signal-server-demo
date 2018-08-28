@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// register
+// register new user
 app.post(`/user`, (req, res) => {
     let result = null;
     userManager.register(req.body)
@@ -31,7 +31,7 @@ app.post(`/user`, (req, res) => {
         .catch(err => res.json({success: false, message: err}));
 });
 
-// connect
+// get public user information
 app.get(`/user/:id`, (req, res) => {
     let result = null;
     userManager.getById(req.params.id)
@@ -46,26 +46,28 @@ app.get(`/user/:id`, (req, res) => {
         .catch(err => res.json({success: false, message: err}));
 });
 
-// for registration
+// check if a username already exists
 app.get(`/user/name/:name`, (req, res) => {
     userManager.getByName(req.params.name)
         .then(user => res.json(user))
         .catch(err => res.json({success: false, message: err}));
 });
 
-// for list in UI
+// load all users
 app.get(`/users`, (req, res) => {
     userManager.getAll()
         .then(users => res.json(users))
         .catch(err => res.json({success: false, message: err}));
 });
 
+// send a new message
 app.post(`/message`, (req, res) => {
     messageManager.createMessage(req.body)
         .then(() => res.json({success: true}))
         .catch(err => res.json({success: false, message: err}));
 });
 
+// get a message for recipientRegistrationId, sent by sourceRegistrationId
 app.get(`/messages/:sourceRegistrationId/:recipientRegistrationId`, (req, res) => {
     let result = [];
     let sourceRegistrationId = Number.parseInt(req.params.sourceRegistrationId);

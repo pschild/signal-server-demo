@@ -12,30 +12,30 @@ class Database {
                 CREATE TABLE IF NOT EXISTS users
                 (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name UNIQUE,
-                    registrationId,
-                    identityKey,
-                    pubSignedPreKey,
-                    signedPreKeyId,
-                    signature
+                    name VARCHAR(64) UNIQUE,
+                    registrationId INTEGER,
+                    identityKey VARCHAR(64),
+                    pubSignedPreKey VARCHAR(64),
+                    signedPreKeyId INTEGER,
+                    signature VARCHAR(128)
                 )
             `);
             this.db.run(`
                 CREATE TABLE IF NOT EXISTS preKeys
                 (
-                    registrationId,
-                    keyId,
-                    pubPreKey
+                    registrationId INTEGER,
+                    keyId INTEGER,
+                    pubPreKey VARCHAR(64)
                 )
             `);
             this.db.run(`
                 CREATE TABLE IF NOT EXISTS messages
                 (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    sourceRegistrationId,
-                    recipientRegistrationId,
-                    body,
-                    type,
+                    sourceRegistrationId INTEGER,
+                    recipientRegistrationId INTEGER,
+                    body TEXT,
+                    type TINYINT,
                     timestamp DATETIME DEFAULT (datetime('now','localtime')),
                     fetched BOOLEAN NOT NULL DEFAULT 0
                 )
